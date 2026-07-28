@@ -12,16 +12,16 @@
       --bg:          #c8cdd6;
       --bg-alt:      #b8bec9;
       --bg-card:     #d4d9e2;
-      --border:      #a0a8b8;
-      --text:        #1a1e26;
-      --text-muted:  #4a5068;
-      --accent:      #5a7a5e;
-      --accent-bg:   #dce8de;
-      --lightning:   #a8c4e0;
-      --lightning2:  #7aadd4;
+      --border:      #8a93a8;
+      --text:        #0d1117;
+      --text-muted:  #252c3d;
+      --accent:      #2e5234;
+      --accent-bg:   #c4d8c8;
+      --lightning:   #4a7a9e;
+      --lightning2:  #2a5a7e;
       --sidebar-bg:  #b0b8c8;
       --header-bg:   #bdc3cf;
-      --white:       #e8eaee;
+      --white:       #f0f2f5;
     }
 
     /* ── DARK MODE (night forest) ── */
@@ -30,8 +30,8 @@
       --bg-alt:      #141810;
       --bg-card:     #1f2519;
       --border:      #2e3828;
-      --text:        #d4c9a8;
-      --text-muted:  #8a7f62;
+      --text:        #e8dfc0;
+      --text-muted:  #b0a882;
       --accent:      #7a6b4a;
       --accent-bg:   #2a2818;
       --lightning:   #5a7a4a;
@@ -460,10 +460,9 @@
   <header>
     <div class="header-left">
       <span class="header-name">Vinay Panchal</span>
-      <span class="header-tagline">Data Science · Marketing · Communication · Rohtak, India</span>
+      <span class="header-tagline">Data Science · Marketing · Communication</span>
     </div>
     <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">
-      <span class="theme-icon" id="themeIcon">🌙</span>
       <span id="themeLabel">Dark Mode</span>
     </button>
   </header>
@@ -475,7 +474,6 @@
 
       <!-- HERO -->
       <section id="hero">
-        <div class="hero-badge"><span class="badge-dot"></span> 1 Year Coding · Fluent in English</div>
         <h1 class="hero-name">Hi, I'm<br/><span>Vinay Panchal.</span></h1>
         <p class="hero-desc">
           Bachelor in Data Science. Currently learning new skills and using AI tools to automate my life and grow. I talk to people, understand them, and build things that make sense.
@@ -509,7 +507,7 @@
         <div class="about-grid">
           <div class="about-card">
             <h4>Background</h4>
-            <p>Bachelor in Data Science. Currently learning new skills every day. Based in Rohtak, Haryana. I use AI tools to automate my life and grow in every direction.</p>
+            <p>Bachelor in Data Science. Currently learning new skills every day. Using AI tools to automate my life and grow in every direction.</p>
           </div>
           <div class="about-card">
             <h4>What I Do</h4>
@@ -518,15 +516,6 @@
               <li>Marketing and persuasion psychology</li>
               <li>Build things with Python and AI</li>
               <li>Fluent English communication</li>
-            </ul>
-          </div>
-          <div class="about-card">
-            <h4>Currently Learning</h4>
-            <ul>
-              <li>SQL and data analysis</li>
-              <li>AI automation workflows</li>
-              <li>Personal branding and content</li>
-              <li>Studying 100+ ads for patterns</li>
             </ul>
           </div>
           <div class="about-card">
@@ -543,23 +532,12 @@
 
         <p class="skills-group-title">Technical</p>
         <div class="skills-row">
-          <span class="skill-tag lit">Python</span>
-          <span class="skill-tag">SQL</span>
-          <span class="skill-tag">HTML / CSS</span>
-          <span class="skill-tag">Git / GitHub</span>
-          <span class="skill-tag">Claude AI / APIs</span>
-          <span class="skill-tag">AI Automation</span>
+          <!-- add your technical skills here as: <span class="skill-tag">Skill Name</span> -->
         </div>
 
-        <p class="skills-group-title">Communication & Marketing</p>
+        <p class="skills-group-title">Communication &amp; Marketing</p>
         <div class="skills-row">
-          <span class="skill-tag lit">Fluent English</span>
-          <span class="skill-tag lit">Copywriting</span>
-          <span class="skill-tag">Storytelling</span>
-          <span class="skill-tag">Persuasion</span>
-          <span class="skill-tag">Public Speaking</span>
-          <span class="skill-tag">Content Strategy</span>
-          <span class="skill-tag">Networking</span>
+          <!-- add your communication & marketing skills here -->
         </div>
       </section>
 
@@ -619,7 +597,6 @@
       const html = document.documentElement;
       const isDark = html.getAttribute('data-theme') === 'dark';
       html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-      document.getElementById('themeIcon').textContent  = isDark ? '🌙' : '🌲';
       document.getElementById('themeLabel').textContent = isDark ? 'Dark Mode' : 'Light Mode';
     }
 
