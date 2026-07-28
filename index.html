@@ -1,71 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vinay Panchal</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    /* ── LIGHT MODE (stormy weather) ── */
     :root {
-      --green:      #4a7c59;
-      --green-light:#e8f2eb;
-      --green-mid:  #c4dfc9;
-      --gray:       #6b7280;
-      --gray-light: #f3f4f6;
-      --gray-mid:   #d1d5db;
-      --black:      #111827;
-      --white:      #ffffff;
-      --text:       #1f2937;
-      --text-muted: #6b7280;
+      --bg:          #c8cdd6;
+      --bg-alt:      #b8bec9;
+      --bg-card:     #d4d9e2;
+      --border:      #a0a8b8;
+      --text:        #1a1e26;
+      --text-muted:  #4a5068;
+      --accent:      #5a7a5e;
+      --accent-bg:   #dce8de;
+      --lightning:   #a8c4e0;
+      --lightning2:  #7aadd4;
+      --sidebar-bg:  #b0b8c8;
+      --header-bg:   #bdc3cf;
+      --white:       #e8eaee;
+    }
+
+    /* ── DARK MODE (night forest) ── */
+    [data-theme="dark"] {
+      --bg:          #1a1f18;
+      --bg-alt:      #141810;
+      --bg-card:     #1f2519;
+      --border:      #2e3828;
+      --text:        #d4c9a8;
+      --text-muted:  #8a7f62;
+      --accent:      #7a6b4a;
+      --accent-bg:   #2a2818;
+      --lightning:   #5a7a4a;
+      --lightning2:  #3d5c30;
+      --sidebar-bg:  #141810;
+      --header-bg:   #111408;
+      --white:       #d4c9a8;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--white);
+      background: var(--bg);
       color: var(--text);
       display: flex;
+      flex-direction: column;
       min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
     }
 
-    /* ── RIGHT SIDEBAR NAV ── */
-    .sidebar {
-      width: 220px;
-      min-height: 100vh;
-      background: var(--gray-light);
-      border-left: 1px solid var(--gray-mid);
-      position: fixed;
-      right: 0;
+    /* ── TOP HEADER ── */
+    header {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
       top: 0;
-      bottom: 0;
+      z-index: 200;
+      transition: background 0.3s;
+    }
+
+    .header-left {
       display: flex;
       flex-direction: column;
-      padding: 32px 24px;
-      z-index: 100;
+      gap: 2px;
+    }
+    .header-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+    .header-tagline {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-icon { font-size: 14px; }
+
+    /* ── LAYOUT ── */
+    .page-body {
+      display: flex;
+      flex: 1;
+    }
+
+    /* ── RIGHT SIDEBAR ── */
+    .sidebar {
+      width: 200px;
+      background: var(--sidebar-bg);
+      border-left: 1px solid var(--border);
+      position: sticky;
+      top: 53px;
+      height: calc(100vh - 53px);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 20px;
+      order: 2;
+      flex-shrink: 0;
+      transition: background 0.3s;
     }
 
     .sidebar-logo {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
-      color: var(--black);
-      letter-spacing: -0.5px;
-      margin-bottom: 40px;
+      color: var(--text);
+      margin-bottom: 32px;
       text-decoration: none;
+      letter-spacing: -0.3px;
     }
-    .sidebar-logo span { color: var(--green); }
+    .sidebar-logo span { color: var(--accent); }
 
     .nav-links {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
     .nav-links a {
       display: block;
-      padding: 9px 14px;
-      font-size: 14px;
+      padding: 8px 12px;
+      font-size: 13px;
       color: var(--text-muted);
       text-decoration: none;
       border-radius: 8px;
@@ -73,20 +149,21 @@
     }
     .nav-links a:hover,
     .nav-links a.active {
-      background: var(--green-light);
-      color: var(--green);
+      background: var(--accent-bg);
+      color: var(--accent);
     }
 
     .sidebar-bottom {
       margin-top: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
+    /* ── BUTTONS ── */
     .btn {
       display: inline-block;
-      padding: 9px 18px;
+      padding: 8px 16px;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 13px;
       font-weight: 600;
@@ -97,72 +174,92 @@
       transition: all 0.18s;
       border: none;
     }
-    .btn-green {
-      background: var(--green);
+    .btn-accent {
+      background: var(--accent);
       color: var(--white);
     }
-    .btn-green:hover { background: #3d6b4a; }
+    .btn-accent:hover { opacity: 0.85; }
     .btn-outline {
       background: transparent;
-      border: 1.5px solid var(--gray-mid);
+      border: 1.5px solid var(--border);
       color: var(--text-muted);
     }
-    .btn-outline:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
     .btn-linkedin {
       background: #0A66C2;
       color: #fff;
     }
     .btn-linkedin:hover { background: #004182; }
 
-    /* ── MAIN CONTENT ── */
+    /* ── MAIN ── */
     .main {
-      margin-right: 220px;
       flex: 1;
       display: flex;
       flex-direction: column;
+      order: 1;
+      min-width: 0;
     }
 
     section {
-      padding: 64px 52px;
-      border-bottom: 1px solid var(--gray-mid);
+      padding: 56px 52px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
     }
-    section:last-child { border-bottom: none; }
+    section:last-of-type { border-bottom: none; }
+
+    /* ── LIGHTNING CANVAS ── */
+    #lightning-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+    [data-theme="dark"] #lightning-canvas { opacity: 0.2; }
 
     /* ── HERO ── */
     #hero {
-      min-height: 100vh;
+      min-height: calc(100vh - 53px);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background: var(--white);
-      gap: 20px;
+      gap: 18px;
+      position: relative;
+      z-index: 1;
     }
 
-    .hero-tag {
-      display: inline-block;
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       padding: 5px 12px;
-      background: var(--green-light);
-      color: var(--green);
-      border-radius: 20px;
+      background: var(--accent-bg);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      border-radius: 8px;
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.04em;
       width: fit-content;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
     }
 
     .hero-name {
-      font-size: 42px;
+      font-size: 40px;
       font-weight: 700;
-      color: var(--black);
+      color: var(--text);
       line-height: 1.15;
       letter-spacing: -0.5px;
     }
-    .hero-name span { color: var(--green); }
+    .hero-name span { color: var(--accent); }
 
-    .hero-role {
-      font-size: 16px;
+    .hero-desc {
+      font-size: 15px;
       color: var(--text-muted);
-      max-width: 480px;
+      max-width: 460px;
       line-height: 1.65;
     }
 
@@ -170,473 +267,444 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .hero-stats {
       display: flex;
-      gap: 32px;
-      margin-top: 32px;
-      padding-top: 32px;
-      border-top: 1px solid var(--gray-mid);
+      gap: 28px;
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
     }
-    .stat-item {}
     .stat-num {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
-      color: var(--black);
+      color: var(--text);
     }
     .stat-label {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
       margin-top: 2px;
     }
 
-    /* ── SECTION HEADERS ── */
+    /* ── SECTION LABELS ── */
     .sec-label {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 8px;
+      color: var(--lightning2);
+      margin-bottom: 6px;
     }
     .sec-title {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
-      color: var(--black);
+      color: var(--text);
       margin-bottom: 6px;
       letter-spacing: -0.3px;
     }
     .sec-sub {
       font-size: 14px;
       color: var(--text-muted);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       line-height: 1.6;
-      max-width: 540px;
+      max-width: 500px;
     }
 
     /* ── ABOUT ── */
-    #about { background: var(--gray-light); }
+    #about { background: var(--bg-alt); position: relative; z-index: 1; }
 
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 8px;
+      gap: 16px;
     }
     .about-card {
-      background: var(--white);
-      border: 1px solid var(--gray-mid);
-      border-radius: 12px;
-      padding: 22px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      transition: background 0.3s, border-color 0.3s;
     }
+    .about-card:hover { border-color: var(--accent); }
     .about-card h4 {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
-      color: var(--green);
+      color: var(--accent);
       margin-bottom: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
     }
-    .about-card p {
-      font-size: 14px;
+    .about-card p, .about-card li {
+      font-size: 13px;
       color: var(--text-muted);
       line-height: 1.65;
     }
-    .about-card ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .about-card ul li {
-      font-size: 14px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .about-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .about-card ul li { display: flex; align-items: center; gap: 8px; }
     .about-card ul li::before {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
-      background: var(--green);
+      background: var(--lightning2);
       flex-shrink: 0;
     }
 
     /* ── SKILLS ── */
-    #skills { background: var(--white); }
+    #skills { background: var(--bg); position: relative; z-index: 1; }
 
-    .skills-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .skills-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin: 20px 0 10px;
     }
+    .skills-group-title:first-of-type { margin-top: 0; }
+
+    .skills-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .skill-tag {
-      padding: 7px 16px;
-      border: 1.5px solid var(--gray-mid);
+      padding: 6px 14px;
+      border: 1.5px solid var(--border);
       border-radius: 8px;
       font-size: 13px;
-      color: var(--text);
-      background: var(--white);
+      color: var(--text-muted);
+      background: var(--bg-card);
       transition: all 0.18s;
+      cursor: default;
     }
-    .skill-tag:hover {
-      border-color: var(--green);
-      background: var(--green-light);
-      color: var(--green);
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+    .skill-tag.lit {
+      border-color: var(--lightning);
+      color: var(--lightning2);
+      background: var(--accent-bg);
     }
-    .skill-tag.highlight {
-      background: var(--green-light);
-      border-color: var(--green-mid);
-      color: var(--green);
-    }
-
-    .skills-section-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--black);
-      margin: 24px 0 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .skills-section-title:first-of-type { margin-top: 0; }
 
     /* ── WORKS ── */
-    #works { background: var(--gray-light); }
+    #works { background: var(--bg-alt); position: relative; z-index: 1; }
 
-    .works-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .work-card {
-      background: var(--white);
-      border: 1px solid var(--gray-mid);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: border-color 0.18s, box-shadow 0.18s;
-    }
-    .work-card:hover {
-      border-color: var(--green-mid);
-      box-shadow: 0 4px 16px rgba(74, 124, 89, 0.08);
-    }
-    .work-thumb {
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-    }
-    .work-thumb.g1 { background: linear-gradient(135deg, #e8f2eb, #c4dfc9); }
-    .work-thumb.g2 { background: linear-gradient(135deg, #f3f4f6, #d1d5db); }
-    .work-thumb.g3 { background: linear-gradient(135deg, #e8f2eb, #d1d5db); }
-    .work-thumb.g4 { background: linear-gradient(135deg, #c4dfc9, #f3f4f6); }
-
-    .work-info { padding: 18px 20px; }
-    .work-info h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--black);
-      margin-bottom: 6px;
-    }
-    .work-info p {
-      font-size: 13px;
+    .works-empty {
+      background: var(--bg-card);
+      border: 1.5px dashed var(--border);
+      border-radius: 10px;
+      padding: 40px 32px;
+      text-align: center;
       color: var(--text-muted);
-      line-height: 1.55;
-      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.7;
     }
-    .work-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .work-tag {
-      padding: 3px 10px;
-      background: var(--green-light);
-      border-radius: 20px;
-      font-size: 11px;
-      color: var(--green);
-      font-weight: 600;
-    }
+    .works-empty strong { color: var(--text); display: block; margin-bottom: 6px; font-size: 15px; }
 
     /* ── CONTACT ── */
-    #contact { background: var(--white); }
+    #contact { background: var(--bg); position: relative; z-index: 1; }
 
     .contact-box {
-      max-width: 480px;
-      background: var(--gray-light);
-      border: 1px solid var(--gray-mid);
-      border-radius: 12px;
-      padding: 32px;
+      max-width: 420px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
     .contact-email {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
-      color: var(--green);
+      color: var(--accent);
       text-decoration: none;
       word-break: break-all;
     }
     .contact-email:hover { text-decoration: underline; }
-    .contact-note {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-    .contact-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
+    .contact-note { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .contact-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
 
     /* ── FOOTER ── */
     footer {
-      padding: 24px 52px;
-      background: var(--gray-light);
-      border-top: 1px solid var(--gray-mid);
+      padding: 20px 52px;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative;
+      z-index: 1;
     }
     footer p { font-size: 12px; color: var(--text-muted); }
-    footer a { color: var(--green); text-decoration: none; }
+    footer a { color: var(--accent); text-decoration: none; }
 
-    /* mobile */
+    /* ── MOBILE ── */
     @media (max-width: 768px) {
+      header { padding: 12px 20px; }
       .sidebar { display: none; }
-      .main { margin-right: 0; }
-      section { padding: 48px 24px; }
-      .hero-name { font-size: 30px; }
+      section { padding: 44px 20px; }
+      .hero-name { font-size: 28px; }
       .about-grid { grid-template-columns: 1fr; }
-      .works-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 8px; padding: 24px; text-align: center; }
+      footer { flex-direction: column; gap: 6px; padding: 20px; text-align: center; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; }
+      * { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── RIGHT SIDEBAR ── -->
-  <aside class="sidebar">
-    <a href="#hero" class="sidebar-logo">V<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="#hero" class="active">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#works">Works</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="sidebar-bottom">
-      <a href="https://linkedin.com/in/vinaypanchal" target="_blank" class="btn btn-linkedin">LinkedIn</a>
-      <a href="https://github.com/vinayjake00" target="_blank" class="btn btn-outline">GitHub</a>
+  <!-- lightning background -->
+  <canvas id="lightning-canvas"></canvas>
+
+  <!-- ── TOP HEADER ── -->
+  <header>
+    <div class="header-left">
+      <span class="header-name">Vinay Panchal</span>
+      <span class="header-tagline">Data Science · Marketing · Communication · Rohtak, India</span>
     </div>
-  </aside>
+    <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon" id="themeIcon">🌙</span>
+      <span id="themeLabel">Dark Mode</span>
+    </button>
+  </header>
 
-  <!-- ── MAIN ── -->
-  <main class="main">
+  <div class="page-body">
 
-    <!-- HERO -->
-    <section id="hero">
-      <span class="hero-tag">Open to Opportunities</span>
-      <h1 class="hero-name">Hi, I'm Vinay<br/><span>Panchal.</span></h1>
-      <p class="hero-role">
-        Data Science student at IIT Madras who loves building things,
-        talking to people, and making ideas easy to understand.
-        I sit at the edge of tech and marketing — and I like it there.
-      </p>
-      <div class="hero-actions">
-        <a href="#works" class="btn btn-green">See My Work</a>
-        <a href="#contact" class="btn btn-outline">Get in Touch</a>
-        <a href="https://linkedin.com/in/vinaypanchal" target="_blank" class="btn btn-linkedin">LinkedIn</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">IIT</div>
-          <div class="stat-label">Madras BS</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">6+</div>
-          <div class="stat-label">Projects</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">2+</div>
-          <div class="stat-label">Years Coding</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Claude 101 Score</div>
-        </div>
-      </div>
-    </section>
+    <!-- ── MAIN ── -->
+    <main class="main">
 
-    <!-- ABOUT -->
-    <section id="about">
-      <p class="sec-label">About Me</p>
-      <h2 class="sec-title">Who I Am</h2>
-      <p class="sec-sub">Second-year student in Data Science. I code, market, and communicate — because the best ideas need both brain and voice.</p>
-      <div class="about-grid">
-        <div class="about-card">
-          <h4>Background</h4>
-          <p>Studying BS Data Science & Applications at IIT Madras. Based in Rohtak, Haryana. I bridge the gap between technical work and the people it's built for.</p>
+      <!-- HERO -->
+      <section id="hero">
+        <div class="hero-badge"><span class="badge-dot"></span> 1 Year Coding · Fluent in English</div>
+        <h1 class="hero-name">Hi, I'm<br/><span>Vinay Panchal.</span></h1>
+        <p class="hero-desc">
+          Bachelor in Data Science. Currently learning new skills and using AI tools to automate my life and grow. I talk to people, understand them, and build things that make sense.
+        </p>
+        <div class="hero-actions">
+          <a href="#about" class="btn btn-accent">About Me</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+          <a href="https://www.linkedin.com/in/vinayjake00/" target="_blank" class="btn btn-linkedin">LinkedIn</a>
         </div>
-        <div class="about-card">
-          <h4>What I Love</h4>
-          <ul>
-            <li>Talking to people and understanding them</li>
-            <li>Marketing and persuasion psychology</li>
-            <li>Building tools with Python and AI</li>
-            <li>Learning English communication</li>
-          </ul>
-        </div>
-        <div class="about-card">
-          <h4>Currently</h4>
-          <ul>
-            <li>Diploma Level at IIT Madras</li>
-            <li>Learning SQL alongside Python</li>
-            <li>Building my personal brand</li>
-            <li>Studying 100+ ads for patterns</li>
-          </ul>
-        </div>
-        <div class="about-card">
-          <h4>Goal</h4>
-          <p>Work at the intersection of tech and sales — eventually in Tech Sales or SaaS roles. Thinking global, starting now.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills">
-      <p class="sec-label">Skills</p>
-      <h2 class="sec-title">What I Work With</h2>
-      <p class="sec-sub">A mix of technical and people skills — because good products need both.</p>
-
-      <p class="skills-section-title">Technical</p>
-      <div class="skills-row">
-        <span class="skill-tag highlight">Python</span>
-        <span class="skill-tag">SQL</span>
-        <span class="skill-tag">HTML / CSS</span>
-        <span class="skill-tag">Data Analysis</span>
-        <span class="skill-tag">Git / GitHub</span>
-        <span class="skill-tag">Claude AI / APIs</span>
-        <span class="skill-tag">Jupyter</span>
-      </div>
-
-      <p class="skills-section-title">Marketing & Communication</p>
-      <div class="skills-row">
-        <span class="skill-tag highlight">Copywriting</span>
-        <span class="skill-tag highlight">Storytelling</span>
-        <span class="skill-tag">Content Strategy</span>
-        <span class="skill-tag">Persuasion</span>
-        <span class="skill-tag">Public Speaking</span>
-        <span class="skill-tag">English Communication</span>
-        <span class="skill-tag">Networking</span>
-      </div>
-    </section>
-
-    <!-- WORKS -->
-    <section id="works">
-      <p class="sec-label">Portfolio</p>
-      <h2 class="sec-title">My Works</h2>
-      <p class="sec-sub">Things I've built, studied, and shipped.</p>
-      <div class="works-grid">
-        <div class="work-card">
-          <div class="work-thumb g1">🐍</div>
-          <div class="work-info">
-            <h4>Data Analysis Project</h4>
-            <p>Analyzed patterns in 100+ ads to understand what makes them work. Python, Pandas, and a lot of curiosity.</p>
-            <div class="work-tags">
-              <span class="work-tag">Python</span>
-              <span class="work-tag">Pandas</span>
-              <span class="work-tag">Marketing</span>
-            </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">1+</div>
+            <div class="stat-label">Year Coding</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">B.Sc.</div>
+            <div class="stat-label">Data Science</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">AI</div>
+            <div class="stat-label">Tools User</div>
           </div>
         </div>
-        <div class="work-card">
-          <div class="work-thumb g2">🌐</div>
-          <div class="work-info">
-            <h4>This Portfolio</h4>
-            <p>Built from scratch in plain HTML and CSS. No frameworks, no templates — just code and intent.</p>
-            <div class="work-tags">
-              <span class="work-tag">HTML</span>
-              <span class="work-tag">CSS</span>
-            </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <p class="sec-label">About Me</p>
+        <h2 class="sec-title">Who I Am</h2>
+        <p class="sec-sub">I sit at the edge of tech and people — and I like it there.</p>
+        <div class="about-grid">
+          <div class="about-card">
+            <h4>Background</h4>
+            <p>Bachelor in Data Science. Currently learning new skills every day. Based in Rohtak, Haryana. I use AI tools to automate my life and grow in every direction.</p>
+          </div>
+          <div class="about-card">
+            <h4>What I Do</h4>
+            <ul>
+              <li>Talk to people and understand them</li>
+              <li>Marketing and persuasion psychology</li>
+              <li>Build things with Python and AI</li>
+              <li>Fluent English communication</li>
+            </ul>
+          </div>
+          <div class="about-card">
+            <h4>Currently Learning</h4>
+            <ul>
+              <li>SQL and data analysis</li>
+              <li>AI automation workflows</li>
+              <li>Personal branding and content</li>
+              <li>Studying 100+ ads for patterns</li>
+            </ul>
+          </div>
+          <div class="about-card">
+            <h4>Goal</h4>
+            <p>Work at the intersection of tech and communication — eventually in Tech Sales or SaaS. Thinking global, starting now.</p>
           </div>
         </div>
-        <div class="work-card">
-          <div class="work-thumb g3">🤖</div>
-          <div class="work-info">
-            <h4>Claude API App</h4>
-            <p>A small AI-powered tool built using the Anthropic API. First steps into building with LLMs.</p>
-            <div class="work-tags">
-              <span class="work-tag">Python</span>
-              <span class="work-tag">API</span>
-              <span class="work-tag">AI</span>
-            </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills">
+        <p class="sec-label">Skills</p>
+        <h2 class="sec-title">What I Work With</h2>
+
+        <p class="skills-group-title">Technical</p>
+        <div class="skills-row">
+          <span class="skill-tag lit">Python</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">Git / GitHub</span>
+          <span class="skill-tag">Claude AI / APIs</span>
+          <span class="skill-tag">AI Automation</span>
+        </div>
+
+        <p class="skills-group-title">Communication & Marketing</p>
+        <div class="skills-row">
+          <span class="skill-tag lit">Fluent English</span>
+          <span class="skill-tag lit">Copywriting</span>
+          <span class="skill-tag">Storytelling</span>
+          <span class="skill-tag">Persuasion</span>
+          <span class="skill-tag">Public Speaking</span>
+          <span class="skill-tag">Content Strategy</span>
+          <span class="skill-tag">Networking</span>
+        </div>
+      </section>
+
+      <!-- WORKS -->
+      <section id="works">
+        <p class="sec-label">Portfolio</p>
+        <h2 class="sec-title">My Works</h2>
+        <div class="works-empty">
+          <strong>Nothing here yet.</strong>
+          Projects are being built. Check back soon — or connect on LinkedIn to follow along.
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <p class="sec-label">Contact</p>
+        <h2 class="sec-title">Let's Talk</h2>
+        <p class="sec-sub">I check my email daily and reply fast.</p>
+        <div class="contact-box">
+          <p class="contact-note">Best way to reach me:</p>
+          <a href="mailto:vinayjake00@gmail.com" class="contact-email">vinayjake00@gmail.com</a>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/in/vinayjake00/" target="_blank" class="btn btn-linkedin">LinkedIn</a>
+            <a href="https://github.com/vinayjake00" target="_blank" class="btn btn-outline">GitHub</a>
           </div>
         </div>
-        <div class="work-card">
-          <div class="work-thumb g4">📣</div>
-          <div class="work-info">
-            <h4>Ad Breakdown Series</h4>
-            <p>Deep dives into real ads — breaking down copy, visuals, and psychology. Shared on social media.</p>
-            <div class="work-tags">
-              <span class="work-tag">Marketing</span>
-              <span class="work-tag">Content</span>
-              <span class="work-tag">Research</span>
-            </div>
-          </div>
-        </div>
+      </section>
+
+      <footer>
+        <p>© 2026 Vinay Panchal</p>
+        <p><a href="https://vinayjake00.github.io">vinayjake00.github.io</a></p>
+      </footer>
+
+    </main>
+
+    <!-- ── RIGHT SIDEBAR ── -->
+    <aside class="sidebar">
+      <a href="#hero" class="sidebar-logo">V<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#works">Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="sidebar-bottom">
+        <a href="https://www.linkedin.com/in/vinayjake00/" target="_blank" class="btn btn-linkedin">LinkedIn</a>
+        <a href="https://github.com/vinayjake00" target="_blank" class="btn btn-outline">GitHub</a>
       </div>
-    </section>
+    </aside>
 
-    <!-- CONTACT -->
-    <section id="contact">
-      <p class="sec-label">Contact</p>
-      <h2 class="sec-title">Let's Talk</h2>
-      <p class="sec-sub">I genuinely enjoy talking to people. If you have an idea, an opportunity, or just want to connect — I'm easy to reach.</p>
-      <div class="contact-box">
-        <p class="contact-note">Best way to reach me — I check this daily and reply fast.</p>
-        <a href="mailto:vinayjake00@gmail.com" class="contact-email">vinayjake00@gmail.com</a>
-        <div class="contact-links">
-          <a href="https://linkedin.com/in/vinaypanchal" target="_blank" class="btn btn-linkedin">LinkedIn</a>
-          <a href="https://github.com/vinayjake00" target="_blank" class="btn btn-outline">GitHub</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      <p>© 2026 Vinay Panchal</p>
-      <p><a href="https://vinayjake00.github.io">vinayjake00.github.io</a></p>
-    </footer>
-
-  </main>
+  </div>
 
   <script>
-    // Highlight active nav link on scroll
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
+    // ── THEME TOGGLE
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.getElementById('themeIcon').textContent  = isDark ? '🌙' : '🌲';
+      document.getElementById('themeLabel').textContent = isDark ? 'Dark Mode' : 'Light Mode';
+    }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
+    // ── ACTIVE NAV ON SCROLL
+    const sections  = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-links a');
+    const observer  = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
           navLinks.forEach(a => a.classList.remove('active'));
-          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
+          const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+          if (a) a.classList.add('active');
         }
       });
-    }, { threshold: 0.4 });
-
+    }, { threshold: 0.35 });
     sections.forEach(s => observer.observe(s));
+
+    // ── LIGHTNING
+    const canvas = document.getElementById('lightning-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+    function drawBolt(x1, y1, x2, y2, offset, detail) {
+      if (detail < 1 || offset < 1) {
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        return;
+      }
+      const mx = (x1 + x2) / 2 + randBetween(-offset, offset);
+      const my = (y1 + y2) / 2 + randBetween(-offset, offset);
+      drawBolt(x1, y1, mx, my, offset / 2, detail - 1);
+      drawBolt(mx, my, x2, y2, offset / 2, detail - 1);
+    }
+
+    function flashLightning() {
+      const dark  = document.documentElement.getAttribute('data-theme') === 'dark';
+      const color = dark ? 'rgba(90,140,70,' : 'rgba(100,160,220,';
+
+      const x    = randBetween(canvas.width * 0.1, canvas.width * 0.7);
+      const endX = x + randBetween(-60, 60);
+
+      // main bolt
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      ctx.strokeStyle = color + '0.9)';
+      ctx.lineWidth   = 1.5;
+      drawBolt(x, 0, endX, canvas.height * randBetween(0.3, 0.65), 80, 7);
+      ctx.stroke();
+
+      // glow
+      ctx.beginPath();
+      ctx.strokeStyle = color + '0.25)';
+      ctx.lineWidth   = 6;
+      drawBolt(x, 0, endX, canvas.height * randBetween(0.3, 0.65), 80, 7);
+      ctx.stroke();
+
+      // branch sometimes
+      if (Math.random() > 0.4) {
+        const bx = x + randBetween(-30, 30);
+        const by = randBetween(canvas.height * 0.1, canvas.height * 0.35);
+        ctx.beginPath();
+        ctx.strokeStyle = color + '0.5)';
+        ctx.lineWidth   = 0.8;
+        drawBolt(bx, by, bx + randBetween(-80, 80), by + randBetween(60, 180), 40, 5);
+        ctx.stroke();
+      }
+
+      // fade out
+      setTimeout(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }, 120);
+
+      // schedule next
+      setTimeout(flashLightning, randBetween(3000, 9000));
+    }
+
+    setTimeout(flashLightning, 1500);
   </script>
 
 </body>
